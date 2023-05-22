@@ -1,0 +1,413 @@
+definitions:
+  req.AddUserDto:
+    properties:
+      email:
+        description: 邮箱
+        type: string
+      mobile:
+        description: 手机
+        type: string
+      nickname:
+        description: 昵称
+        type: string
+      password:
+        description: 密码
+        type: string
+    required:
+    - email
+    - mobile
+    - nickname
+    - password
+    type: object
+  req.LoginUserDto:
+    properties:
+      mobile:
+        description: 手机
+        type: string
+      password:
+        description: 密码
+        type: string
+    required:
+    - mobile
+    - password
+    type: object
+  req.RoleBasic:
+    properties:
+      create_at:
+        description: 创建时间
+        type: string
+      id:
+        description: id
+        type: integer
+      identity:
+        description: 角色唯一标识
+        type: string
+      remark:
+        description: 角色说明
+        type: string
+      role_name:
+        description: 角色名
+        type: string
+      role_rule:
+        description: 关联角色规则表
+        items:
+          $ref: '#/definitions/req.RoleRule'
+        type: array
+      update_at:
+        description: 更新时间
+        type: string
+    type: object
+  req.RoleRule:
+    properties:
+      create_at:
+        description: 创建时间
+        type: string
+      id:
+        description: id
+        type: integer
+      role_id:
+        description: 角色id
+        type: string
+      rule_basic:
+        allOf:
+        - $ref: '#/definitions/req.RuleBasic'
+        description: 关联规则基础信息
+      rule_id:
+        description: 规则id
+        type: string
+      update_at:
+        description: 更新时间
+        type: string
+    type: object
+  req.RuleBasic:
+    properties:
+      create_at:
+        description: 创建时间
+        type: string
+      id:
+        description: id
+        type: integer
+      identity:
+        description: 规则唯一标识
+        type: string
+      parent_id:
+        description: 父级id
+        type: integer
+      rule_name:
+        description: 规则名称
+        type: string
+      rule_title:
+        description: 规则标题
+        type: string
+      sort:
+        description: 排序
+        type: integer
+      update_at:
+        description: 更新时间
+        type: string
+    type: object
+  req.UpdateUserDto:
+    properties:
+      email:
+        description: 邮箱
+        type: string
+      mobile:
+        description: 手机
+        type: string
+      nickname:
+        description: 昵称
+        type: string
+      password:
+        description: 密码
+        type: string
+    required:
+    - email
+    - mobile
+    - nickname
+    type: object
+  req.UserBase:
+    properties:
+      create_at:
+        description: 创建时间
+        type: string
+      email:
+        description: 邮箱
+        type: string
+      id:
+        description: id
+        type: integer
+      identity:
+        description: 用户唯一标识
+        type: string
+      mobile:
+        description: 手机
+        type: string
+      nickname:
+        description: 昵称
+        type: string
+      update_at:
+        description: 更新时间
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a gin scaffold
+  title: scaffold-gin API
+  version: v1
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: 服务ping通测试
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: 服务ping
+      tags:
+      - 公用方法
+  /sms-code-ali:
+    get:
+      consumes:
+      - application/json
+      description: 获取验证码
+      parameters:
+      - description: 手机号
+        in: query
+        name: mobile
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"","data":""}'
+          schema:
+            type: string
+      summary: 获取验证码
+      tags:
+      - 公用方法
+  /sms-code-tx:
+    get:
+      consumes:
+      - application/json
+      description: 获取验证码
+      parameters:
+      - description: 手机号
+        in: query
+        name: mobile
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"","data":""}'
+          schema:
+            type: string
+      summary: 获取验证码
+      tags:
+      - 公用方法
+  /user-login:
+    post:
+      consumes:
+      - application/json
+      description: 获取用户token
+      parameters:
+      - description: 用户信息
+        in: body
+        name: userinfo
+        required: true
+        schema:
+          $ref: '#/definitions/req.LoginUserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"","data":""}'
+          schema:
+            type: string
+      summary: 用户登录
+      tags:
+      - 用户相关
+  /user-register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册
+      parameters:
+      - description: 用户信息
+        in: body
+        name: userinfo
+        required: true
+        schema:
+          $ref: '#/definitions/req.AddUserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"","data":""}'
+          schema:
+            type: string
+      summary: 用户注册
+      tags:
+      - 用户相关
+  /v1/role-detail:
+    get:
+      consumes:
+      - application/json
+      description: 获取角色详情
+      parameters:
+      - description: 唯一标识
+        in: query
+        name: identity
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/req.RoleBasic'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取角色详情
+      tags:
+      - 角色相关
+  /v1/role-list:
+    get:
+      consumes:
+      - application/json
+      description: 获取角色列表
+      parameters:
+      - description: 关键词
+        in: query
+        name: keyword
+        type: string
+      - description: 规则
+        in: query
+        name: rule_identity
+        type: string
+      - description: 请输入页码
+        in: query
+        name: page_num
+        type: integer
+      - description: 请输入每页数量
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/req.RoleBasic'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取角色列表
+      tags:
+      - 角色相关
+  /v1/upload:
+    post:
+      consumes:
+      - application/json
+      description: 上传文件
+      parameters:
+      - description: 文件
+        in: formData
+        name: fileObj
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"","data":""}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 上传文件
+      tags:
+      - 文件上传
+  /v1/user-detail:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户详情
+      parameters:
+      - description: 昵称
+        in: query
+        name: nickname
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/req.UserBase'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户详情
+      tags:
+      - 用户相关
+  /v1/user-list:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户列表
+      parameters:
+      - description: 请输入页码
+        in: query
+        name: page_num
+        type: integer
+      - description: 请输入每页数量
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/req.UserBase'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取用户列表
+      tags:
+      - 用户相关
+  /v1/user-update:
+    put:
+      consumes:
+      - application/json
+      description: 用户更新
+      parameters:
+      - description: 用户信息
+        in: body
+        name: userinfo
+        required: true
+        schema:
+          $ref: '#/definitions/req.UpdateUserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"msg":"","data":""}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用户更新
+      tags:
+      - 用户相关
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,55 @@
+server:
+  Name: doctor-sync
+  Local: "zh"
+  Port: ":9999"
+  RunMode: debug  # test release debug  
+
+logger:
+  Path: log/zlog.log
+  MaxSize: 1
+  MaxBackups: 10
+  MaxAge: 7
+  Compress: true
+  Level: warn # debug warn 
+
+db:
+  Host: 172.21.170.170
+  Port: 3306
+  User: root
+  Pass: 123456
+  DbName: scaffold-gin
+  Charset: utf8mb4
+
+redis:
+  Host: 172.21.170.170
+  Port: 6379
+  Pass: ""
+  DbName: 3
+
+# 阿里家族的服务
+## 对象存储
+oss:
+  Endpoint: os.aliyuncs.com
+  AccessKeyId: Ladasdqtsct
+  AccessKeySecret: 5VsEadfwga
+  BucketName: app
+  BasePath: https://app.os.aliyuncs.com
+## sms 短信服务
+smsali:
+  AccessKeyId: 
+  AccessKeySecret: 
+
+# 腾讯家族的服务
+## 对象存储
+cos:
+  Bucket:
+  Region:
+  SecretID:
+  SecretKey:
+  BaseURL:
+  PathPrefix:
+## sms 短信服务
+smstx:
+  SmsSdkAppId: 
+  SecretID: 
+  SecretKey: 
