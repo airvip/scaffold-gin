@@ -9,6 +9,16 @@ go build -tags netgo -ldflags '-s -w' -o go-app
 ```
 
 
+### 多环境配置
+
+#### 打包成二进制文件
+```
+go run .\main.go
+go run .\main.go -c="app-dev.yml"
+```
+
+
+
 ### 服务器部署
 
 #### 1. build 项目

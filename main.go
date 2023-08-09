@@ -1,15 +1,20 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"io"
 	"os"
 	"scaffold-gin/common/config"
+
 	// "scaffold-gin/common/global"
 	// "scaffold-gin/internal/model"
 	"scaffold-gin/internal/router"
 
 	"github.com/gin-gonic/gin"
 )
+
+var c string
 
 // @title scaffold-gin API
 // @version v1
@@ -18,11 +23,22 @@ import (
 // @in header
 // @name Authorization
 func main() {
+
+	// 设置多环境配置 START
+	flag.StringVar(&c, "c", "app.yml", "config file path")
+	flag.Parse()
+	dir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	configPath := fmt.Sprintf("%s%cetc%c%s",dir,os.PathSeparator,os.PathSeparator, c)
+	config.InitConfig(configPath)
+	// 设置多环境配置 END
+
+
 	gin.SetMode(config.Conf.Server.RunMode)
 	// 禁用控制台颜色，将日志写入文件时不需要控制台颜色。
     gin.DisableConsoleColor()
-
-    
 
 	// 如果开启数据库迁移记得开启上面的 import
 	// db := global.DB
