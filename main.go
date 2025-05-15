@@ -1,8 +1,6 @@
 package main
 
 import (
-	"flag"
-	"fmt"
 	"io"
 	"os"
 	"scaffold-gin/common/config"
@@ -23,17 +21,6 @@ var c string
 // @in header
 // @name Authorization
 func main() {
-
-	// 设置多环境配置 START
-	flag.StringVar(&c, "c", "app.yml", "config file path")
-	flag.Parse()
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-	configPath := fmt.Sprintf("%s%cetc%c%s",dir,os.PathSeparator,os.PathSeparator, c)
-	config.InitConfig(configPath)
-	// 设置多环境配置 END
 
 
 	gin.SetMode(config.Conf.Server.RunMode)

@@ -7,7 +7,7 @@ import (
 
 const (
 	configType = "yaml"
-	// configPath = "./etc/app.yml"
+	configPath = "./etc/app.yml"
 )
 
 // 全局配置，需要哪个添加哪个
@@ -27,8 +27,7 @@ type Config struct {
 
 var Conf = &Config{}
 
-// func init() {
-func InitConfig(configPath string) {
+func init() {
 
 	viper.SetConfigFile(configPath)
 	viper.SetConfigType(configType)

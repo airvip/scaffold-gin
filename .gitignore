@@ -6,6 +6,7 @@ runtime/*
 log/*
 
 
+
 # build result
 go-app
 scaffold-gin

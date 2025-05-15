@@ -3,12 +3,12 @@ package service
 import (
 	"fmt"
 	"log"
-	"scaffold-gin/common/def"
+	"scaffold-gin/internal/def"
 	"scaffold-gin/common/global"
 	"scaffold-gin/common/response"
 	"scaffold-gin/internal/dto/req"
 	"scaffold-gin/internal/model"
-	"scaffold-gin/internal/validate"
+	"scaffold-gin/common/validate"
 	"scaffold-gin/util"
 	"strconv"
 

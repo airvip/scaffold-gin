@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"scaffold-gin/common/def"
+	"scaffold-gin/internal/def"
 	"scaffold-gin/common/global"
 	"scaffold-gin/common/response"
 	"scaffold-gin/internal/model"
@@ -80,7 +80,7 @@ func GetRoleDetail(c *gin.Context) {
 
 	data := new(model.RoleBasic)
 
-	cacheKey := fmt.Sprintf(def.GetCacheString("user_detail"), identity)
+	cacheKey := fmt.Sprintf(def.GetCacheString(def.USER_DETAIL), identity)
 	s, err := global.REDIS.Get(cacheKey).Result()
 	if err == nil {
 		err = json.Unmarshal([]byte(s), &data)

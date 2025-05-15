@@ -1,4 +1,7 @@
 ### Swagger-UI
+
+生成 swagger 文件 `swag init`
+
 Swagger-UI Url `http://ip:9999/swagger-ui/index.html` 
 
 
